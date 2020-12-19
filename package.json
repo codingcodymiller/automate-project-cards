@@ -1,0 +1,24 @@
+{
+  "name": "automate-project-cards",
+  "version": "1.0.0",
+  "description": "Automate addition of task cards to GitHub Projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codingcodymiller/automate-project-cards.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codingcodymiller/automate-project-cards/issues"
+  },
+  "homepage": "https://github.com/codingcodymiller/automate-project-cards#readme",
+  "dependencies": {
+    "@octokit/core": "^3.2.4",
+    "dedent-js": "^1.0.1"
+  }
+}
