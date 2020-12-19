@@ -1,7 +1,7 @@
 # automate-project-cards
 Automate addition of task cards to GitHub Projects
 
-## NOTE:
+## CONFIGURATION:
 
 Until such time that OAuth is implemented, you will need to provide [your own auth token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token).
 
