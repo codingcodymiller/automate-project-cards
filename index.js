@@ -9,7 +9,7 @@ const mediaType = {
 }
 
 const octokit = new Octokit({
-  auth: "7187747affd5ee2f02b969f7296623834b894826"
+  auth: "Access Token Here"
 })
 
 async function buildProject(){
