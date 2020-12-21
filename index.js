@@ -1,25 +1,32 @@
 const { Octokit } = require("@octokit/core");
 const dedent = require("dedent-js");
 const cardTemplates = require("./card-templates.js")
-
+const [,,auth] = process.argv
 const mediaType = {
   previews: [
     'inertia'
   ]
 }
-
 const octokit = new Octokit({
-  auth: "Access Token Here"
+  auth
 })
 
 async function buildProject(){
   const { data: { id: projectId } } = await createProject("Web Development Portfolio")
   const createdColumns = await createColumns(projectId, ["Pending", "In Progress", "In Review", "Completed"])
   const pendingColumnId = createdColumns.find(column => column.name === "Pending").id
-  createCards(pendingColumnId, cardTemplates)
+  await createCards(pendingColumnId, cardTemplates)
+  await setProjectToPublic(projectId)
+}
+async function setProjectToPublic(project_id) {
+  return octokit.request(`PATCH /projects/${project_id}`, {
+    project_id,
+    mediaType,
+    private: false
+  }).catch(console.log)
 }
 
-function createProject(name){
+async function createProject(name){
   return octokit.request('POST /user/projects', { name, mediaType })
 }
 
@@ -35,7 +42,7 @@ async function createColumns(project_id, columns){
 
 async function createCards(column_id, cards){
   for(let i = 0; i < cards.length; i++){
-    const note = dedent(cards[i].content)
+    const note = cards[i].content
     await octokit.request(`POST /projects/columns/${column_id}/cards`, { column_id, note, mediaType }).catch(console.log)
   }
 }
