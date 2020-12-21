@@ -7,12 +7,16 @@ const mediaType = {
     'inertia'
   ]
 }
+
+if(!auth) return console.log('Missing auth code')
+
 const octokit = new Octokit({
   auth
 })
 
 async function buildProject(){
-  const { data: { id: projectId } } = await createProject("Web Development Portfolio")
+  const { data: { id: projectId, html_url } } = await createProject("Web Development Portfolio")
+  console.log(html_url)
   const createdColumns = await createColumns(projectId, ["Pending", "In Progress", "In Review", "Completed"])
   const pendingColumnId = createdColumns.find(column => column.name === "Pending").id
   await createCards(pendingColumnId, cardTemplates)
